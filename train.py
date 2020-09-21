@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 import os
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 from model import BiSeNet
 from face_dataset import FaceMask
 from loss import OhemCELoss
@@ -147,5 +147,5 @@ if __name__ == "__main__":
     if not osp.exists(respth+'/model'):
         os.makedirs(respth+'/model')
     fintune_model = './fintune_model/79999_iter.pth'
-    
+
     train(fintune_model,data_root,respth)
