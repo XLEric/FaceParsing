@@ -53,6 +53,8 @@ def train(fintune_model,data_root,respth):
         chkpt = torch.load(fintune_model, map_location=device)
         net.load_state_dict(chkpt)
         print('load fintune model : {}'.format(fintune_model))
+    else:
+        print('no fintune model')
 
     score_thres = 0.7
     n_min = n_img_per_gpu * cropsize[0] * cropsize[1]//16
@@ -98,7 +100,7 @@ def train(fintune_model,data_root,respth):
                 flag_change_lr_cnt += 1
 
                 if flag_change_lr_cnt > 30:
-                    init_lr = init_lr*0.96
+                    init_lr = init_lr*0.1
                     set_learning_rate(optimizer, init_lr)
                     flag_change_lr_cnt = 0
 
@@ -146,6 +148,6 @@ if __name__ == "__main__":
         os.makedirs(respth)
     if not osp.exists(respth+'/model'):
         os.makedirs(respth+'/model')
-    fintune_model = './fintune_model/79999_iter.pth'
+    fintune_model = './result/model/face_parse_latest.pth'
 
     train(fintune_model,data_root,respth)
